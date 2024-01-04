@@ -7,17 +7,39 @@
 </head>
    
 <body>
-    <div class="card">
-        <h1>Welcome to the Quiz!</h1>
-        <p id="timer"></p>
-        <section>
-            <p>Can you get the high score by answering quesitons correctly before time runs out? Click "submit" below and find out!
-            </p>
-            <div id="quiz"></div>
-        </section>
-        <button id="submit" class="button">Submit</button>
-    </div>
+    <header>
+        <div>
+            <a href="highscores.html"><button class="scores-header" id="view-high-scores">View High Scores</button></a>
+        </div>
 
+        <div class="timer">
+            <p>Time:
+                <span id=""timer">0</span>
+            </p>
+        </div>
+    </header>
+
+    <main class="quiz">
+        <div id="card">
+            <h1>Welcome to the Quiz!</h1>
+            
+            <p>Can you get the high score by answering quesitons correctly before time runs out? Click "submit" below and find out!</p>
+            <button id="start" class="button">Start Quiz</button>
+        </div>
+
+        <div id="questions" class="hide">
+            <h2 id="question-words">
+            <div class="choices" id="choices"></div>
+        </div>
+
+        <div id="end-quiz" class="hide">
+            <h2>All finished</h2>
+            <p>You Scored: <span id="final-score"></span></p>
+            <p>Enter your initials: <input type="text" id="name" max="2" />
+                <button id="submit-score">Submit</button>
+            </p>
+        </div>
+    </main>
     <script src = "./script.js"></script> 
 </body>
 </html>

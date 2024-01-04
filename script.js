@@ -17,42 +17,104 @@ const quizData= [
 ]
 
 const quizContainer = document.getElementById('quiz');
-const submitButton = document.getElementById('submit');
+const submitButton = document.getElementById('submit-score');
+var questionsEl = document.getElementById("#questions");
+var choicesEl = document.getElementById("#choices");
+var startEl = document.getElementById("#start");
+var restartEl = document.getElementById("#reset");
+var nameEl = document.getElementById("#name");
+var timerEl = document.getElementsByClassName("timer");
 
 
-//TIMER
-
-var timerEl = document.getElementById("timer");
-
-
+var questionIndex = 0;
 var secondsLeft = 60;
+var time = questions.length * 15;
 
-function setTime() {
-    var timerInterval = setInterval(function() {
-        secondsLeft--;
-        timerEl.textContent = secondsLeft + " seconds left.";
-
-        if(secondsLeft === 0) {
-            alert = "Game Over!"
-        }
-    }, 1000);
+// This gets the whole things rolling.
+function startQuiz() {
+    var StartScreenEl = document.getElementById("card");
+    StartScreenEl.setAttribute("class", "hide");
+    questionsEl.removeAttribute("class");
+    getQuestion();
 }
 
-//TIMER
-
-
-function quiz() {
-    let score = 0;
-
-    quizData.forEach((question) => {
-        let answer = prompt(question.question + "Answer: ");
-
-        if (answer === question.answer) {
-            score += 1;
-            alert("Way to go!");
-        } else {
-            score -= 1;
-            alert("Wrooooong!");
-        }
-    });
+//This displays the questions and options.
+function getQuestion() {
+    var currentQuestion = quizData[questionIndex];
+    var promptEl = document.getElementById("question-words")
+        promptEl.textContent = currentQuestion.prompt;
+        choicesEl.innerHTML = "";
+        currentQuestion.option.forEach(function(choice, i) {
+            var choiceBtn = document.createElement("button");
+            choiceBtn.setAttribute("value", choice);
+            choiceBtn.textContent = i + 1 +". " + choice;
+            choiceBtn.onclick = questionClick;
+            choicesEl.appendChild(choiceBtn);
+        });
 }
+
+
+//This will check for right answers. ADDD
+function questionClick(){
+    if (this.value !== question[questionIndex].answer) {
+        time -+ 12;
+        if (time < 0) {
+            time = 0;
+        }
+        timerEl.textContent = time;
+        feedbackEl.textcontent = "Sorry, the correct answer was ...";
+    } else {
+        feedbackEl.textContent = "Correct!";
+    }
+    feedbackEl.setAttribute("class", "feedback");
+    setTimeout(function() {
+        feedbackEl.setAttribute("class", "feedback hide");
+    }, 2000);
+    questionIndex++;
+    if (questionIndex === question.length) {
+        quizEnd();
+    }
+}
+
+//This is for showing the final score.
+function quizEnd() {
+    clearInterval(timerId);
+    var endScreenEl = document.getElementById("end-quiz");
+    endScreenEl.removeAttribute("class");
+    var finalScoreEl = document.getElementById("final-score");
+    finalScoreEl.setAttribute("class", "hide");
+}
+
+
+function clockWork() {
+    time--;
+    timerEl.textContent = time;
+    if (time <= 0) {
+        quizEnd();
+    }
+}
+
+
+
+function saveScore() {
+    var name = nameEl.value.trim();
+    if (name !== "") {
+        var highscores = JSON.parse(window.localStorage.getItem("highschores")) || [];
+        var newScore = {
+            score: time,
+            name: name
+        };
+        highscores.push(newScore);
+        window.localStorage.setItem("highscores", JSON.stringify(highscores));
+    }
+}
+
+function checkEnter(event) {
+    if (event.key === "Enter") {
+        saveScore();
+    }
+}
+nameEl.onkeyup = checkEnter;
+submitButton.onclick = saveScore;
+startEl.onclick = startQuiz;
+
