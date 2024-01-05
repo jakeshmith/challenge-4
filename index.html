@@ -3,28 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="sylesheet" href="./assets/style.css">
     <title>Quiz</title>
 </head>
    
 <body>
     <header>
         <div>
-            <a href="highscores.html"><button class="scores-header" id="view-high-scores">View High Scores</button></a>
+            <a href="./highscores.html"><button class="scores-header" id="view-high-scores">View High Scores</button></a>
         </div>
 
         <div class="timer">
             <p>Time:
-                <span id=""timer">0</span>
+                <span id="timer">0</span>
             </p>
         </div>
     </header>
 
     <main class="quiz">
         <div id="card">
-            <h1>Welcome to the Quiz!</h1>
-            
-            <p>Can you get the high score by answering quesitons correctly before time runs out? Click "submit" below and find out!</p>
-            <button id="start" class="button">Start Quiz</button>
+            <div class="landing" id="start-screen">
+                <h1>Welcome to the Quiz!</h1>
+                
+                <p>Can you get the high score by answering questions correctly before time runs out? Click "Start Quiz" below and find out!</p>
+                <button id="start" class="button">Start Quiz</button>
+            </div>
         </div>
 
         <div id="questions" class="hide">
@@ -39,7 +42,8 @@
                 <button id="submit-score">Submit</button>
             </p>
         </div>
+        <div id="feedback" class="hide feedback"></div>
     </main>
-    <script src = "./script.js"></script> 
+    <script src = "./assets/javascript/script.js"></script> 
 </body>
 </html>
