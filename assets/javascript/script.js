@@ -31,7 +31,6 @@ var questionIndex = 0;
 var time = quizData.length * 15;
 var timerId;
 
-// This gets the whole things rolling.
 function startQuiz() {
     timerId = setInterval(clockWork,1000);
     timerEl.textcontent = time;
@@ -41,7 +40,6 @@ function startQuiz() {
     getQuestion();
 }
 
-//This displays the questions and options.
 function getQuestion() {
         var currentQuestion = quizData[questionIndex];
     var promptEl = document.getElementById("question-words")
@@ -57,7 +55,6 @@ function getQuestion() {
 }
 
 
-//This will check for right answers. ADDD
 function questionClick(){
     if (this.value !== question[questionIndex].answer) {
         time -+ 12;
@@ -89,7 +86,6 @@ function clockWork() {
     }
 }
 
-//This is for showing the final score.
 function quizEnd() {
     clearInterval(timerId);
     var endScreenEl = document.getElementById("end-quiz");
